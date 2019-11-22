@@ -7,6 +7,7 @@ var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
 var constrainedLog;
+var chainlog;
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -38,22 +39,13 @@ function setup(){
 
     bird = new Bird(100,100);
 
-    var options = {
-        bodyA : bird.body,
-        bodyB : constrainedLog.body,
-        stiffness: 0.04,
-        length: 10
-    }
-    var chain = Constraint.create(options);
-    World.add(world,chain);
+    chainlog = new Chain(bird.body,constrainedLog.body);
 }
 
 function draw(){
     background(backgroundImg);
     Engine.update(engine);
-    console.log(box2.body.position.x);
-    console.log(box2.body.position.y);
-    console.log(box2.body.angle);
+    
     box1.display();
     box2.display();
     ground.display();
@@ -73,6 +65,5 @@ function draw(){
     platform.display();
 
     constrainedLog.display();
-    strokeWeight(3);
-    line(bird.body.position.x, bird.body.position.y, constrainedLog.body.position.x, constrainedLog.body.position.y);
+   chainlog.display();
 }
